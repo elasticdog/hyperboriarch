@@ -19,13 +19,13 @@
   template: src=update-cjdns.j2 dest=/usr/local/bin/update-cjdns
     owner=root group=root mode=0755
 
+- name: build and install cjdns from git
+  command: /usr/local/bin/update-cjdns
+
 - name: configure the cjdns daemon
   copy: src="{{ inventory_hostname }}-cjdroute.conf" dest=/etc/cjdroute.conf
     owner=root group=root mode=0644
   notify: restart the cjdns daemon
-
-- name: build and install cjdns from git
-  command: /usr/local/bin/update-cjdns
 
 - name: start the cjdns daemon and enable on boot
   service: name=cjdns state=started enabled=true
