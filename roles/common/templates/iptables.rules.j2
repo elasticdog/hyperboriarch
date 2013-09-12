@@ -24,8 +24,8 @@
 -A INPUT -j REJECT --reject-with icmp-proto-unreachable
 
 -A TCP -p tcp -m tcp --dport 22 -j ACCEPT
-{% if cjdns_port is defined %}
--A TCP -p tcp -m tcp --dport {{ cjdns_port }} -j ACCEPT
+{% if cjdns_port.rc == 0 %}
+-A TCP -p tcp -m tcp --dport {{ cjdns_port.stdout }} -j ACCEPT
 {% endif %}
 
 COMMIT

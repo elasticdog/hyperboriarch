@@ -1,6 +1,13 @@
 ---
 # This playbook configures the firewall based on stateful packet filtering.
 
+# due to purposeful separation of the common and cjdns roles, this will only
+# work after /etc/cjdroute.conf exists (i.e., not on the initial playbook run)
+- name: register cjdns_port variable from cjdroute.conf
+  command: /usr/bin/python2 -c 'import json; obj=json.load(open("/etc/cjdroute.conf")); print obj["interfaces"]["UDPInterface"][0]["bind"].split(":")[1]'
+  ignore_errors: yes
+  register: cjdns_port
+
 - name: configure iptables packet filtering
   template: src=iptables.rules.j2 dest=/etc/iptables/iptables.rules
     owner=root group=root mode=0644
