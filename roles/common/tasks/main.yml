@@ -7,6 +7,6 @@
 
 - include: users.yml tags=users
 - include: openssh.yml tags=ssh
-- include: iptables.yml tags=firewall
-- include: sysctl.yml tags=kernel
+- include: iptables.yml tags=iptables
+- include: sysctl.yml tags=sysctl
 - include: ntp.yml tags=ntp
