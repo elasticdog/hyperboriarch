@@ -20,7 +20,7 @@
     owner=root group=root mode=0755
 
 - name: configure the cjdns daemon
-  copy: src="{{ ansible_fqdn }}-cjdroute.conf" dest=/etc/cjdroute.conf
+  copy: src="{{ inventory_hostname }}-cjdroute.conf" dest=/etc/cjdroute.conf
     owner=root group=root mode=0644
   notify: restart the cjdns daemon
 
