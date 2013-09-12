@@ -1,0 +1,5 @@
+---
+# This playbook handles cjdns notifications.
+
+- name: restart the cjdns daemon
+  service: name=cjdns state=restarted
