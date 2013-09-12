@@ -10,3 +10,4 @@
 - include: iptables.yml tags=iptables
 - include: sysctl.yml tags=sysctl
 - include: ntp.yml tags=ntp
+- include: vnstat.yml tags=vnstat
