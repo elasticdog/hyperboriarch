@@ -1,0 +1,31 @@
+# {{ ansible_managed }}
+
+*filter
+
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
+:TCP - [0:0]
+:UDP - [0:0]
+
+# prevent ping floods by rate limiting each source address
+-A INPUT -p icmp -m icmp --icmp-type 8 -m recent --set --name PING --mask 255.255.255.255 --rsource
+-A INPUT -p icmp -m icmp --icmp-type 8 -m recent --update --seconds 4 --hitcount 6 --name PING --mask 255.255.255.255 --rsource -j DROP
+-A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT
+
+-A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+-A INPUT -p ipv6 -j ACCEPT
+-A INPUT -m conntrack --ctstate INVALID -j DROP
+-A INPUT -p udp -m conntrack --ctstate NEW -j UDP
+-A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m conntrack --ctstate NEW -j TCP
+-A INPUT -p udp -j REJECT --reject-with icmp-port-unreachable
+-A INPUT -p tcp -j REJECT --reject-with tcp-reset
+-A INPUT -j REJECT --reject-with icmp-proto-unreachable
+
+-A TCP -p tcp -m tcp --dport 22 -j ACCEPT
+{% if cjdns_port is defined %}
+-A TCP -p tcp -m tcp --dport {{ cjdns_port }} -j ACCEPT
+{% endif %}
+
+COMMIT

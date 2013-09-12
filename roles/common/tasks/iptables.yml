@@ -1,0 +1,18 @@
+---
+# This playbook configures the firewall based on stateful packet filtering.
+
+- name: configure iptables packet filtering
+  template: src=iptables.rules.j2 dest=/etc/iptables/iptables.rules
+    owner=root group=root mode=0644
+  notify: restore iptables rules
+
+- name: enable iptables restore on boot
+  service: name=iptables state=started enabled=true
+
+- name: configure ip6tables packet filtering
+  template: src=ip6tables.rules.j2 dest=/etc/iptables/ip6tables.rules
+    owner=root group=root mode=0644
+  notify: restore ip6tables rules
+
+- name: enable ip6tables restore on boot
+  service: name=ip6tables state=started enabled=true

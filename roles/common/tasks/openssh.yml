@@ -1,0 +1,10 @@
+---
+# This playbook configures OpenSSH.
+
+- name: configure the openssh daemon
+  template: src=sshd_config.j2 dest=/etc/ssh/sshd_config
+    owner=root group=root mode=0644
+  notify: restart the openssh daemon
+
+- name: start the openssh daemon and enable on boot
+  service: name=sshd state=started enabled=true

@@ -1,0 +1,16 @@
+---
+# This playbook deploys the whole application stack in this site.
+
+- name: apply common configuration
+  hosts: all
+  sudo: yes
+  tags: common
+  roles:
+    - common
+
+- name: configure cjdns stack
+  hosts: all
+  sudo: yes
+  tags: cjdns
+  roles:
+    - cjdns

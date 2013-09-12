@@ -1,0 +1,17 @@
+---
+# This playbook handles user creation and access rights.
+
+- name: create user
+  user: name={{ user }} uid=1111 group=users
+  tags: bootstrap
+
+- name: add ssh pubkey to authorized_keys for user
+  authorized_key: user={{ user }} key="{{ item }}"
+  with_file: "{{ ssh_pubkey }}"
+  tags: bootstrap
+
+- name: grant full sudo rights to user
+  template: src=sudoers.j2 dest="/etc/sudoers.d/10_{{ user }}"
+    owner=root group=root mode=0440
+    validate='visudo -cf %s'
+  tags: bootstrap

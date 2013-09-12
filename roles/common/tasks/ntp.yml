@@ -1,0 +1,13 @@
+---
+# This playbook configures NTP (Network Time Protocol).
+
+- name: install the ntp package
+  pacman: name=ntp state=installed
+
+- name: configure the ntp daemon
+  template: src=ntp.conf.j2 dest=/etc/ntp.conf
+    owner=root group=root mode=0644
+  notify: restart the ntp daemon
+
+- name: start the ntp daemon and enable on boot
+  service: name=ntpd state=started enabled=true
