@@ -1,0 +1,27 @@
+---
+# This playbook downloads a current mirrorlist for pacman.
+
+- name: check for existence of an old mirrorlist
+  stat: path=/etc/pacman.d/mirrorlist.old
+  register: mirrorlist_old
+  tags: pkgcache
+
+- name: make a backup of the original mirrorlist
+  command: cp -p /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
+  when: update_mirrorlist or not mirrorlist_old.stat.exists
+
+- name: download a current mirrorlist
+  get_url: url=https://www.archlinux.org/mirrorlist/?country={{ country_code }}&protocol=http&ip_version=4&use_mirror_status=on
+    dest=/etc/pacman.d/mirrorlist force=yes
+    owner=root group=root mode=0644
+  when: update_mirrorlist or not mirrorlist_old.stat.exists
+
+- name: enable new mirrorlist servers
+  command: /usr/bin/sed -i 's/#Server/Server/g' /etc/pacman.d/mirrorlist
+  when: update_mirrorlist or not mirrorlist_old.stat.exists
+
+- name: refresh the master package lists
+  pacman: name=pacman state=installed update_cache=yes
+  when: update_mirrorlist or update_pkgcache
+    or not mirrorlist_old.stat.exists
+  tags: pkgcache

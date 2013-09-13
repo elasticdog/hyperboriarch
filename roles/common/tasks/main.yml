@@ -1,10 +1,7 @@
 ---
 # This playbook contains common plays that will be run on all nodes.
 
-- name: refresh the master package lists
-  pacman: name=pacman state=installed update_cache=yes
-  tags: syncrefresh
-
+- include: mirrorlist.yml tags=mirrorlist
 - include: users.yml tags=users
 - include: openssh.yml tags=ssh
 - include: iptables.yml tags=iptables

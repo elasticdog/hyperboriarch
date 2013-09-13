@@ -6,6 +6,13 @@
 admin_user: "{{ lookup('env','USER') }}"
 admin_uid: 1111
 
+# country code for downloading a geographically local mirrorlist
+#
+# AU AT BY BE BR BG CA CL CN CO CZ DK EE FI FR DE GR HK HU IS IN
+# ID IE IL IT JP KZ KR LV LU MK NL NC NZ NO PL PT RO RU RS SG SK
+# ZA ES LK SE CH TW TR UA GB US UZ VN all
+country_code: "US"
+
 # whether or not to install the cjdcmd tool
 install_cjdcmd: true
 
@@ -25,6 +32,12 @@ sshd_listenaddress:
 
 # the path on the *controlling* machine to the user's ssh pubkey
 ssh_pubkey: "{{ lookup('env','HOME') }}/.ssh/id_rsa.pub"
+
+# whether or not to force a mirrorlist update on every run
+update_mirrorlist: false
+
+# whether or not to force a package cache update on every run
+update_pkgcache: false
 
 
 # *** DO NOT EDIT BELOW THIS LINE ***
