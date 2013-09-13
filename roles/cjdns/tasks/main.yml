@@ -12,6 +12,7 @@
 - name: create update-cjdns script
   template: src=update-cjdns.j2 dest=/usr/local/bin/update-cjdns
     owner=root group=root mode=0755
+  tags: cjdcmd
 
 - name: build and install cjdns from git
   command: /usr/local/bin/update-cjdns
