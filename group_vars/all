@@ -2,8 +2,8 @@
 # Variables listed here are applicable to all host groups.
 # The defaults should be sane for most setups, but can be adjusted below.
 
-# where on the remote machine to build cjdns
-cjdns_build_dir: "/usr/local/src/cjdns-git"
+# whether or not to install the cjdcmd tool
+install_cjdcmd: true
 
 # the network time protocol servers to utilize
 ntp_servers:
@@ -11,6 +11,9 @@ ntp_servers:
   - "1.us.pool.ntp.org"
   - "2.us.pool.ntp.org"
   - "3.us.pool.ntp.org"
+
+# where on the remote machine to build cjdns packages
+package_build_dir: "/usr/local/src"
 
 # the host's public ip address(es) to bind ssh to
 sshd_listenaddress:

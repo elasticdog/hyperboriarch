@@ -1,18 +1,12 @@
 ---
 # This playbook contains plays to install and maintain cjdns.
 
-- name: install cjdns makedepends packages
-  pacman: name={{ item }} state=installed
-  with_items:
-    - cmake
-    - git
-
 - name: create cjdns build directory
-  file: state=directory path={{ cjdns_build_dir }}
+  file: state=directory path="{{ package_build_dir }}/cjdns-git"
     owner=root group=users mode=0775
 
 - name: create cjdns pkgbuild file
-  copy: src=PKGBUILD dest={{ cjdns_build_dir }}/PKGBUILD
+  copy: src=cjdns-git.PKGBUILD dest="{{ package_build_dir }}/cjdns-git/PKGBUILD"
     owner=root group=users mode=0664
 
 - name: create update-cjdns script
@@ -32,3 +26,6 @@
 
 - name: start the cjdns daemon and enable on boot
   service: name=cjdns state=started enabled=true
+
+- include: cjdcmd.yml tags=cjdcmd
+  when: install_cjdcmd

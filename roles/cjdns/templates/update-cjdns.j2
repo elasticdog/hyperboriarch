@@ -4,10 +4,14 @@
 # update-cjdns
 #
 # Meant to run periodically in order to download, build, package, and install
-# the latest cjdns revision from the upstream git repository.
+# the latest cjdns revision from the upstream git repository. The script
+# optionally takes an argument for a different package to build, assuming
+# there's a PKGBUILD for it in the corresponding $BUILD_DIR.
 #
 
-readonly BUILD_DIR='{{ cjdns_build_dir }}'
+package=$1
+
+readonly BUILD_DIR="{{ package_build_dir }}/${package:=cjdns-git}"
 readonly BASENAME="${0##*/}"  # name of this script for error output
 
 # print the specified message and exit with the given code, if one was supplied
@@ -19,7 +23,7 @@ error_exit() {
 [[ -d $BUILD_DIR ]] || error_exit "build directory ${BUILD_DIR} does not exist"
 
 cd "${BUILD_DIR}"
-/usr/bin/sudo -su {{ user }} /usr/bin/makepkg --clean --install --noconfirm
+/usr/bin/sudo -su {{ user }} /usr/bin/makepkg --clean --syncdeps --install --noconfirm
 
 [[ $? -eq 0 ]] || error_exit 'makepkg build failed'
 
