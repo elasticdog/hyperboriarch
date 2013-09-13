@@ -17,8 +17,8 @@ source=("git://github.com/cjdelisle/${_gitname}.git#branch=master")
 sha256sums=('SKIP')
 
 pkgver() {
-  cd "${srcdir}/${_gitname}"
-  echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+  cd "${_gitname}"
+  printf '%s.%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
 build() {
