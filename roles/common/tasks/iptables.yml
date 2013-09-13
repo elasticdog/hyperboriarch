@@ -8,7 +8,7 @@
 # due to purposeful separation of the common and cjdns roles, this will only
 # work after /etc/cjdroute.conf exists (i.e., not on the initial playbook run)
 - name: register cjdns_port variable from cjdroute.conf
-  shell: /usr/bin/sed '/\/\//d' /etc/cjdroute.conf | /usr/bin/python2 -c 'import json,sys; obj=json.load(sys.stdin); print obj["interfaces"]["UDPInterface"][0]["bind"].split(":")[1]'
+  shell: /usr/bin/cpp -P /etc/cjdroute.conf | /usr/bin/python2 -c 'import json,sys; obj=json.load(sys.stdin); print obj["interfaces"]["UDPInterface"][0]["bind"].split(":")[1]'
   when: cjdroute_conf.stat.exists
   register: cjdns_port
   changed_when: false
