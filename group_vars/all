@@ -2,6 +2,10 @@
 # Variables listed here are applicable to all host groups.
 # The defaults should be sane for most setups, but can be adjusted below.
 
+# the administrative username/uid to create on the remote box(es)
+admin_user: "{{ lookup('env','USER') }}"
+admin_uid: 1111
+
 # whether or not to install the cjdcmd tool
 install_cjdcmd: true
 
@@ -21,9 +25,6 @@ sshd_listenaddress:
 
 # the path on the *controlling* machine to the user's ssh pubkey
 ssh_pubkey: "{{ lookup('env','HOME') }}/.ssh/id_rsa.pub"
-
-# the administrative user to create on the remote box(es)
-user: "{{ lookup('env','USER') }}"
 
 
 # *** DO NOT EDIT BELOW THIS LINE ***

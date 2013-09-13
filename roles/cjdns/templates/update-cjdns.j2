@@ -23,7 +23,7 @@ error_exit() {
 [[ -d $BUILD_DIR ]] || error_exit "build directory ${BUILD_DIR} does not exist"
 
 cd "${BUILD_DIR}"
-/usr/bin/sudo -su {{ user }} /usr/bin/makepkg --clean --syncdeps --install --noconfirm
+/usr/bin/sudo -su {{ admin_user }} /usr/bin/makepkg --clean --syncdeps --install --noconfirm
 
 [[ $? -eq 0 ]] || error_exit 'makepkg build failed'
 

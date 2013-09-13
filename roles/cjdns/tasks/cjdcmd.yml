@@ -15,4 +15,4 @@
   changed_when: "update_cjdcmd.stderr.find('WARNING: A package has already been built') == -1"
 
 - name: configure the cjdcmd tool
-  command: /usr/bin/sudo -u {{ user }} /usr/bin/cjdcmd cjdnsadmin --file /etc/cjdroute.conf creates="/home/{{ user }}/.cjdnsadmin"
+  command: /usr/bin/sudo -u {{ admin_user }} /usr/bin/cjdcmd cjdnsadmin --file /etc/cjdroute.conf creates="/home/{{ admin_user }}/.cjdnsadmin"
