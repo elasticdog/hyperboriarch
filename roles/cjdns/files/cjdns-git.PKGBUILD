@@ -13,6 +13,8 @@ url="https://github.com/cjdelisle/${_gitname}"
 license=('GPL3')
 makedepends=('git' 'cmake')
 optdepends=('libnacl: speed up the build process by skipping the need to compile cnacl')
+provides=("${_gitname}")
+conflicts=("${_gitname}")
 source=("git://github.com/cjdelisle/${_gitname}.git#branch=master")
 sha256sums=('SKIP')
 

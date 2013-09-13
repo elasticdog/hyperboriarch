@@ -10,6 +10,8 @@ arch=('i686' 'x86_64')
 url="https://github.com/inhies/${_gitname}"
 license=('GPL3')
 makedepends=('git' 'go')
+provides=("${_gitname}")
+conflicts=("${_gitname}")
 source=("git://github.com/inhies/${_gitname}.git#branch=master")
 sha256sums=('SKIP')
 _gourl=github.com/inhies/${_gitname}
