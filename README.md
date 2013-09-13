@@ -107,7 +107,7 @@ home directory:
 ##### Generate a New Config
 
 If you're starting from scratch, you can generate a config with the
-`cjdroute` command on the managed host _after_ you've done your first
+`cjdroute` command on the managed host(s) _after_ you've done your first
 playbook run (expect a failure):
 
     $ ansible-playbook site.yml
