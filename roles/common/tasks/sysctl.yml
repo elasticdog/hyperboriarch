@@ -2,13 +2,13 @@
 # This playbook configures runtime kernel parameters.
 
 - name: enable reverse path filtering
-  sysctl: name=net.ipv4.conf.all.rp_filter value=1
+  sysctl: name=net.ipv4.conf.all.rp_filter value={{ net_ipv4_conf_all_rp_filter }}
     state=present sysctl_file=/etc/sysctl.d/net.conf
 
 - name: protect against tcp time-wait assassination hazards
-  sysctl: name=net.ipv4.tcp_rfc1337 value=1
+  sysctl: name=net.ipv4.tcp_rfc1337 value={{ net_ipv4_tcp_rfc1337 }}
     state=present sysctl_file=/etc/sysctl.d/net.conf
 
 - name: allow reuse of sockets in time-wait state
-  sysctl: name=net.ipv4.tcp_tw_reuse value=1
+  sysctl: name=net.ipv4.tcp_tw_reuse value={{ net_ipv4_tcp_tw_reuse }}
     state=present sysctl_file=/etc/sysctl.d/net.conf

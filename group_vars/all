@@ -16,6 +16,11 @@ country_code: "US"
 # whether or not to install the cjdcmd tool
 install_cjdcmd: true
 
+# sysctl runtime kernel parameters
+net_ipv4_conf_all_rp_filter: 1
+net_ipv4_tcp_rfc1337: 1
+net_ipv4_tcp_tw_reuse: 1
+
 # the network time protocol servers to utilize
 ntp_servers:
   - "0.us.pool.ntp.org"
