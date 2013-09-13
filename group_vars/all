@@ -31,9 +31,9 @@ ntp_servers:
 # where on the remote machine to build cjdns packages
 package_build_dir: "/usr/local/src"
 
-# the host's public ip address(es) to bind ssh to
-sshd_listenaddress:
-  - "{{ ansible_eth1['ipv4']['address'] }}"
+# the host's ip address(es) to bind ssh to;
+# ideally this should be your public ipv4 address
+sshd_listenaddress: $ansible_all_ipv4_addresses
 
 # the path on the *controlling* machine to the user's ssh pubkey
 ssh_pubkey: "{{ lookup('env','HOME') }}/.ssh/id_rsa.pub"
