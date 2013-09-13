@@ -121,7 +121,7 @@ playbook run (expect a failure):
 ### Firewall Considerations
 
 At this point, cjdns should be up and running on your host(s), but will
-still have incomming connections blocked by the firewall. Now that we've
+still have incoming connections blocked by the firewall. Now that we've
 pushed a configuration file, Hyperboriarch can determine which port needs
 to be opened up. Run the "iptables" tagged tasks one final time to make
 the change:
