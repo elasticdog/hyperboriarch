@@ -5,6 +5,8 @@
 :INPUT DROP [0:0]
 :FORWARD DROP [0:0]
 :OUTPUT ACCEPT [0:0]
+
+# custom chains
 :TCP - [0:0]
 :UDP - [0:0]
 
@@ -13,6 +15,7 @@
 -A INPUT -p ipv6-icmp -m icmp6 --icmpv6-type 128 -m recent --update --seconds 4 --hitcount 6 --name PING6 --mask ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff --rsource -j DROP
 -A INPUT -p ipv6-icmp -m icmp6 --icmpv6-type 128 -j ACCEPT
 
+# basic stateful filtering
 -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 -A INPUT -i lo -j ACCEPT
 -A INPUT -m conntrack --ctstate INVALID -j DROP
@@ -21,5 +24,7 @@
 -A INPUT -p udp -j REJECT --reject-with icmp6-port-unreachable
 -A INPUT -p tcp -j REJECT --reject-with tcp-reset
 -A INPUT -j REJECT --reject-with icmp6-port-unreachable
+
+# add accept rules to the TCP and UDP chains accordingly
 
 COMMIT
