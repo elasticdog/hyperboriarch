@@ -6,15 +6,19 @@ playbooks for installing, configuring, and maintaining
 [Project Meshnet](https://projectmeshnet.org/)'s
 [cjdns](https://github.com/cjdelisle/cjdns#readme) routing software on
 [Arch Linux](https://www.archlinux.org/) hosts. It can also perform the
-basic tasks for securing a freshly installed server, so you can go from
-nothing to a running cjdns node in no time flat. Welcome to
+basic tasks necessary to safeguard a freshly installed server, so you can
+go from nothing to a secure cjdns node in no time flat. Welcome to
 [Hyperboria](http://hyperboria.net/)!
+
+> If you're new to the project and looking to get connected to the
+> network, first you'll need to
+> [find a peer](https://ezcrypt.it/7d7n#BmTgRe7XkKFbhhS9lGUsxUUb).
 
 Overview
 --------
 
 If you apply the entire _site.yml_ playbook to your hosts, the following
-things will be configured for you by the "common" role:
+tasks will be handled for you by the "common" role:
 
 * an updated pacman mirrorlist will be downloaded
 * an non-root administrative user will be created
@@ -24,8 +28,7 @@ things will be configured for you by the "common" role:
 * the Network Time Protocol (NTP) service will be configured
 * vnStat will be installed to monitor network traffic usage
 
-...and the following things will be configured for you by the "cjdns"
-role:
+...and the following tasks will be handled by the "cjdns" role:
 
 * cjdns and (optionally) [cjdcmd](https://github.com/inhies/cjdcmd#readme)
   will be built and installed from the latest upstream git revision
@@ -34,9 +37,9 @@ role:
 
 There are a lot of little conveniences automatically handled for you as
 well. For instance, the mirrorlist will only be updated on the initial
-run, the firewall will open up your cjdns port if it finds
-a _cdjroute.conf_ file, cdjcmd will generate the required _~/.cjdadmin_
-file for you if possible, etc..
+run, the firewall will open up your cjdns port if it finds a valid
+_cdjroute.conf_ file, cdjcmd will generate its required _~/.cjdadmin_
+file, etc..
 
 _Note that you don't have to apply all of these tasks; everything is
 [tagged](http://www.ansibleworks.com/docs/playbooks2.html#tags) for
@@ -120,33 +123,37 @@ playbook run (expect a failure):
 
 ### Firewall Considerations
 
-At this point, cjdns should be up and running on your host(s), but will
+At this point, cjdns should be up and running on your host(s), but it will
 still have incoming connections blocked by the firewall. Now that we've
-pushed a configuration file, Hyperboriarch can determine which port needs
-to be opened up. Run the "iptables" tagged tasks one final time to make
-the change:
+pushed a _cjdroute.conf_ file, Hyperboriarch can determine which port
+needs to be opened up. Run the "iptables" tagged tasks one final time to
+make the change:
 
     $ ansible-playbook site.yml --tags=iptables
+
+Only cjdns and ssh (port 22) are allowed through the firewall out of the
+box, so you'll have to update the appropriate templates if you want to
+expose other services.
 
 Updating cjdns
 --------------
 
-The cjdns project is very much alpha, and still under heavy development,
-so it's best to keep up-to-date with all of the upstream changes. You can
+The cjdns project is alpha software and still under heavy development, so
+it's best to keep up-to-date with all of the upstream changes. You can
 easily rebuild the latest version and upgrade your systems by running the
-"cjdns" tagged tasks (or the entire playbook, if you prefer):
+"cjdns" tagged tasks:
 
     $ ansible-playbook site.yml --tags=cjdns
 
-Options
--------
+Playbook Options
+----------------
 
-Most of the tasks performed by Hyperboriarch can be customized by
-overriding variables. The default values for everything that can be
-tweaked are stored and explained in the `group_vars/all` file on the
-controlling machine.
+Most of the tasks performed by Hyperboriarch can be customized by setting
+the value of particular variables. The default values for these variables
+are set and documented in the `group_vars/all` file on the controlling
+machine.
 
-If you just want to customize the values for a single run, you can use the
+If you just want to override the values for a single run, you can use the
 `--extra-vars` flag:
 
     $ ansible-playbook site.yml --extra-vars="update_mirrorlist=true"
