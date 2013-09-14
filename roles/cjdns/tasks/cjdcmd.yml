@@ -13,6 +13,7 @@
   command: /usr/local/bin/update-cjdns cjdcmd-git
   register: update_cjdcmd
   changed_when: "update_cjdcmd.stderr.find('WARNING: A package has already been built') == -1"
+  notify: clean up older cjdns-related packages
 
 - name: configure the cjdcmd tool
   command: /usr/bin/cjdcmd cjdnsadmin --file /etc/cjdroute.conf creates=/root/.cjdnsadmin

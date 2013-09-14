@@ -20,7 +20,7 @@
   changed_when: "update_cjdns.stderr.find('WARNING: A package has already been built') == -1"
   notify:
     - restart the cjdns daemon
-    - remove old cjdns packages
+    - clean up older cjdns-related packages
 
 - name: configure the cjdns daemon
   copy: src="{{ inventory_hostname }}-cjdroute.conf" dest=/etc/cjdroute.conf
