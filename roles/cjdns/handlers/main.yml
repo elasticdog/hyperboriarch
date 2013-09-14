@@ -3,3 +3,8 @@
 
 - name: restart the cjdns daemon
   service: name=cjdns state=restarted
+
+- name: remove old cjdns packages
+  command: find "{{ package_build_dir }}/cjdns-git/" -maxdepth 1 -type f -name "cjdns-git-*.pkg.tar.xz" -mtime 28 -print -delete
+  register: remove_old_packages
+  changed_when: remove_old_packages.stdout.find('pkg.tar.xz') != -1
