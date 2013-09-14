@@ -131,8 +131,8 @@ make the change:
 
     $ ansible-playbook site.yml --tags=iptables
 
-Only cjdns and ssh (port 22) are allowed through the firewall out of the
-box, so you'll have to update the appropriate templates if you want to
+Only cjdns and ssh (TCP port 22) are allowed through the firewall out of
+the box, so you'll have to update the appropriate templates if you want to
 expose other services.
 
 Updating cjdns
