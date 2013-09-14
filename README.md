@@ -58,10 +58,11 @@ Initial Setup
 * root-level access on the host(s), directly or via sudo
 * an [inventory file](http://www.ansibleworks.com/docs/patterns.html)
 
-For the inventory hosts file, you can use the default location or simply
-keep it in the same directory as Hyperboriarch. If you choose the latter,
-either set the `ANSIBLE_HOSTS` environment variable to point to it, or use
-the `-i <inventory file>` flag on all of your Ansible commands.
+For the inventory hosts file, it's easiest to keep it in the same
+directory as Hyperboriarch so Ansible can find the correct _group_vars_.
+Either set the `ANSIBLE_HOSTS` environment variable to point to your
+Hyperboriarch directory, or use the `-i <inventory file>` flag on all of
+your Ansible commands.
 
 ### Bootstrapping
 
