@@ -1,10 +1,10 @@
 ---
 # This playbook handles notifications common to all nodes.
 
-- name: restore iptables rules
+- name: restore the iptables rules
   service: name=iptables state=restarted
 
-- name: restore ip6tables rules
+- name: restore the ip6tables rules
   service: name=ip6tables state=restarted
 
 - name: restart the ntp daemon

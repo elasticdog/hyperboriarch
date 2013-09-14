@@ -9,5 +9,5 @@
   register: clean_up_cjdns_packages
   changed_when: clean_up_cjdns_packages.stdout.find('pkg.tar.xz') != -1
 
-- name: copy the cjdnsadmin file to the admin user home directory
+- name: copy the cjdcmd config file to the admin user's home directory
   command: install --preserve-timestamps --owner="{{ admin_user }}" --group=users --mode=0600 /root/.cjdnsadmin "/home/{{ admin_user }}/.cjdnsadmin"

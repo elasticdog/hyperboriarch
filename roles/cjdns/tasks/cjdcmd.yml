@@ -1,11 +1,11 @@
 ---
 # This playbook contains plays to install and maintain cjdcmd.
 
-- name: create cjdcmd build directory
+- name: create the cjdcmd build directory
   file: state=directory path="{{ package_build_dir }}/cjdcmd-git"
     owner=root group=users mode=0775
 
-- name: create cjdcmd pkgbuild file
+- name: create the cjdcmd pkgbuild file
   copy: src=cjdcmd-git.PKGBUILD dest="{{ package_build_dir }}/cjdcmd-git/PKGBUILD"
     owner=root group=users mode=0664
 
@@ -17,4 +17,4 @@
 
 - name: configure the cjdcmd tool
   command: /usr/bin/cjdcmd cjdnsadmin --file /etc/cjdroute.conf creates=/root/.cjdnsadmin
-  notify: copy the cjdnsadmin file to the admin user home directory
+  notify: copy the cjdcmd config file to the admin user's home directory

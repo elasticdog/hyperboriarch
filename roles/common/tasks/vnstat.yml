@@ -1,8 +1,8 @@
 ---
-# This playbook configures vnstat network traffic monitoring.
+# This playbook configures vnStat for network traffic monitoring.
 
 - name: install the vnstat package
   pacman: name=vnstat state=installed
 
-- name: start the vnstat daemon and enable on boot
+- name: start the vnstat daemon and enable it on boot
   service: name=vnstat state=started enabled=true

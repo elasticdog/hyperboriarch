@@ -1,17 +1,17 @@
 ---
 # This playbook handles user creation and access rights.
 
-- name: create administrative user
-  user: name={{ admin_user }} uid={{ admin_uid }} group=users
+- name: create the admin user
+  user: name="{{ admin_user }}" uid={{ admin_uid }} group=users
   tags: bootstrap
 
-- name: add ssh pubkey to authorized_keys for admin user
-  authorized_key: user={{ admin_user }} key="{{ item }}"
+- name: add ssh pubkey to ~/.ssh/authorized_keys for the admin user
+  authorized_key: user="{{ admin_user }}" key="{{ item }}"
   with_file: "{{ ssh_pubkey }}"
   tags: bootstrap
 
-- name: grant full sudo rights to user
+- name: grant full sudo rights to the admin user
   template: src=sudoers.j2 dest="/etc/sudoers.d/10_{{ admin_user }}"
     owner=root group=root mode=0440
-    validate='visudo -cf %s'
+    validate="visudo -cf %s"
   tags: bootstrap

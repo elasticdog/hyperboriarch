@@ -6,5 +6,5 @@
     owner=root group=root mode=0644
   notify: restart the openssh daemon
 
-- name: start the openssh daemon and enable on boot
+- name: start the openssh daemon and enable it on boot
   service: name=sshd state=started enabled=true

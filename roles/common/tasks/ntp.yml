@@ -9,5 +9,5 @@
     owner=root group=root mode=0644
   notify: restart the ntp daemon
 
-- name: start the ntp daemon and enable on boot
+- name: start the ntp daemon and enable it on boot
   service: name=ntpd state=started enabled=true

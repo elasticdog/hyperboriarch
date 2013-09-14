@@ -7,7 +7,7 @@
 
 # due to purposeful separation of the common and cjdns roles, this will only
 # work after /etc/cjdroute.conf exists (i.e., not on the initial playbook run)
-- name: register cjdns_port variable from cjdroute.conf
+- name: parse /etc/cjdroute.conf for the cjdns bind port
   shell: /usr/bin/cpp -P /etc/cjdroute.conf | /usr/bin/python2 -c 'import json,sys; obj=json.load(sys.stdin); print obj["interfaces"]["UDPInterface"][0]["bind"].split(":")[1]'
   when: cjdroute_conf.stat.exists
   register: cjdns_port
@@ -16,15 +16,15 @@
 - name: configure iptables packet filtering
   template: src=iptables.rules.j2 dest=/etc/iptables/iptables.rules
     owner=root group=root mode=0644
-  notify: restore iptables rules
+  notify: restore the iptables rules
 
-- name: enable iptables restore on boot
+- name: ensure the iptables rules are restored on boot
   service: name=iptables state=started enabled=true
 
 - name: configure ip6tables packet filtering
   template: src=ip6tables.rules.j2 dest=/etc/iptables/ip6tables.rules
     owner=root group=root mode=0644
-  notify: restore ip6tables rules
+  notify: restore the ip6tables rules
 
-- name: enable ip6tables restore on boot
+- name: ensure the ip6tables rules are restored on boot
   service: name=ip6tables state=started enabled=true
