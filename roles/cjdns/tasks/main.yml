@@ -22,7 +22,7 @@
 
 - name: configure the cjdns daemon
   copy: src="{{ inventory_hostname }}-cjdroute.conf" dest=/etc/cjdroute.conf
-    owner=root group=root mode=0644
+    owner=root group=root mode=0600
   notify: restart the cjdns daemon
 
 - name: start the cjdns daemon and enable on boot
