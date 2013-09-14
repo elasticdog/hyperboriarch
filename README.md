@@ -7,8 +7,8 @@ playbooks for installing, configuring, and maintaining
 [cjdns](https://github.com/cjdelisle/cjdns#readme) routing software on
 [Arch Linux](https://www.archlinux.org/) hosts. It can also perform the
 basic tasks necessary to safeguard a freshly installed server, so you can
-go from nothing to a secure cjdns node in no time flat. Welcome to
-[Hyperboria](http://hyperboria.net/)!
+go from nothing to a relatively secure cjdns node in no time flat. Welcome
+to [Hyperboria](http://hyperboria.net/)!
 
 > If you're new to the project and looking to get connected to the
 > network, first you'll need to
@@ -23,7 +23,7 @@ tasks will be handled for you by the "common" role:
 * an updated pacman mirrorlist will be downloaded
 * an non-root administrative user will be created
 * OpenSSH will be configured more securely
-* basic firewall rules will be put into place
+* basic ingress firewall rules will be put into place
 * kernel parameters will be set to harden the network stack
 * the Network Time Protocol (NTP) service will be configured
 * vnStat will be installed to monitor network traffic usage
