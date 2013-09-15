@@ -1,34 +1,6 @@
 ---
-# This playbook contains plays to install and maintain cjdns.
+# This playbook contains plays to configure cjdns-related software.
 
-- name: create the cjdns build directory
-  file: state=directory path="{{ package_build_dir }}/cjdns-git"
-    owner=root group=users mode=0775
-
-- name: create the cjdns pkgbuild file
-  copy: src=cjdns-git.PKGBUILD dest="{{ package_build_dir }}/cjdns-git/PKGBUILD"
-    owner=root group=users mode=0664
-
-- name: create the update-cjdns script
-  template: src=update-cjdns.j2 dest=/usr/local/bin/update-cjdns
-    owner=root group=root mode=0755
-  tags: cjdcmd
-
-- name: build and install cjdns from git
-  command: /usr/local/bin/update-cjdns
-  register: update_cjdns
-  changed_when: "update_cjdns.stderr.find('WARNING: A package has already been built') == -1"
-  notify:
-    - restart the cjdns daemon
-    - clean up older cjdns-related packages
-
-- name: configure the cjdns daemon
-  copy: src="{{ inventory_hostname }}-cjdroute.conf" dest=/etc/cjdroute.conf
-    owner=root group=root mode=0600
-  notify: restart the cjdns daemon
-
-- name: start the cjdns daemon and enable it on boot
-  service: name=cjdns state=started enabled=true
-
+- include: cjdns.yml
 - include: cjdcmd.yml tags=cjdcmd
   when: install_cjdcmd
