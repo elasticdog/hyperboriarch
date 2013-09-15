@@ -26,6 +26,7 @@
   copy: src="{{ inventory_hostname }}-cjdroute.conf" dest=/etc/cjdroute.conf
     owner=root group=root mode=0600
   notify: restart the cjdns daemon
+  tags: addpeer
 
 - name: start the cjdns daemon and enable it on boot
   service: name=cjdns state=started enabled=true
