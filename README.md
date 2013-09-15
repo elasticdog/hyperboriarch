@@ -60,9 +60,9 @@ Initial Setup
 
 For the inventory hosts file, it's easiest to keep it in the same
 directory as Hyperboriarch so Ansible can find the correct _group_vars_.
-Either set the `ANSIBLE_HOSTS` environment variable to point to your
-Hyperboriarch directory, or use the `-i <inventory file>` flag on all of
-your Ansible commands.
+Either set the `ANSIBLE_HOSTS` environment variable to point to its full
+path, or use the `-i <inventory file>` flag on all of your Ansible
+commands.
 
 ### Bootstrapping
 
