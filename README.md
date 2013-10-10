@@ -11,7 +11,8 @@ go from nothing to a relatively secure cjdns node in no time flat. Welcome
 to [Hyperboria](http://hyperboria.net/)!
 
 > If you're new to the project and looking to get connected to the
-> network, first you'll need to [find a peer](http://cjdns.tk/peers.txt).
+> network, first you'll need to
+> [find a peer](https://ezcrypt.it/7d7n#BmTgRe7XkKFbhhS9lGUsxUUb).
 
 Overview
 --------
