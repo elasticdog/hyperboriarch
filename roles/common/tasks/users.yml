@@ -7,7 +7,7 @@
 
 - name: add ssh pubkey to ~/.ssh/authorized_keys for the admin user
   authorized_key: user="{{ admin_user }}" key="{{ item }}"
-  with_file: "{{ ssh_pubkey }}"
+  with_file: ssh_pubkey
   tags: bootstrap
 
 - name: grant full sudo rights to the admin user
