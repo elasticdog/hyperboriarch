@@ -15,6 +15,7 @@ makedepends=('cmake' 'git')
 optdepends=('libnacl: speed up the build process by skipping the need to compile cnacl')
 provides=("${_gitname}")
 conflicts=("${_gitname}")
+options=('!buildflags' '!makeflags')
 source=("git://github.com/cjdelisle/${_gitname}.git#branch=master")
 sha256sums=('SKIP')
 
@@ -25,19 +26,11 @@ pkgver() {
 
 build() {
   cd "${srcdir}/${_gitname}"
-
-  # disable makepkg optimizations; use upstream defaults
-  unset CFLAGS
-  unset CPPFLAGS
-  unset MAKEFLAGS
-
   NO_DEBUG=1 ./do
 }
 
 package() {
   cd "${srcdir}/${_gitname}"
-
-  install -D -m755 "build/admin/angel/${_gitname}" "${pkgdir}/usr/bin/${_gitname}"
-  install -D -m755 build/admin/angel/cjdroute2 "${pkgdir}/usr/bin/cjdroute"
+  install -D -m755 cjdroute "${pkgdir}/usr/bin/cjdroute"
   install -D -m644 "contrib/systemd/${_gitname}.service" "${pkgdir}/usr/lib/systemd/system/${_gitname}.service"
 }
