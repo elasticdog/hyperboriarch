@@ -9,7 +9,7 @@ pkgdesc='a command line tool for interacting with cjdns'
 arch=('i686' 'x86_64')
 url="https://github.com/inhies/${_gitname}"
 license=('GPL3')
-makedepends=('git' 'go')
+makedepends=('mercurial' 'git' 'go')
 provides=("${_gitname}")
 conflicts=("${_gitname}")
 source=("git://github.com/inhies/${_gitname}.git#branch=master")
