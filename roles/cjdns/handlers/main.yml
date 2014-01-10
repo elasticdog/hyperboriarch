@@ -5,7 +5,7 @@
   service: name=cjdns state=restarted
 
 - name: clean up older cjdns-related packages
-  command: find "{{ package_build_dir }}" -maxdepth 2 -type f -name "cjd*-git-*.pkg.tar.xz" -mtime 28 -print -delete
+  command: find "{{ package_build_dir }}" -maxdepth 2 -type f -name "cjd*-git-*.pkg.tar.xz" -mtime +28 -print -delete
   register: clean_up_cjdns_packages
   changed_when: clean_up_cjdns_packages.stdout.find('pkg.tar.xz') != -1
 
