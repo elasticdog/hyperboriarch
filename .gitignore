@@ -1,5 +1,4 @@
 .vagrant/
 Vagrantfile
-bootstrap
 hosts
 roles/cjdns/files/*-cjdroute.conf
