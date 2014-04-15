@@ -24,9 +24,16 @@ pkgver() {
   printf '%s.%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
+prepare() {
+  if [[ ! -L "${srcdir}/pybin/python" ]]; then
+    install -d "${srcdir}/pybin"
+    ln -s /usr/bin/python2 "${srcdir}/pybin/python"
+  fi
+}
+
 build() {
   cd "${srcdir}/${_gitname}"
-  NO_DEBUG=1 ./do
+  PATH="${srcdir}/pybin:$PATH" NO_DEBUG=1 ./do
 }
 
 package() {
