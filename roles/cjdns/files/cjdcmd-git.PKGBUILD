@@ -18,7 +18,7 @@ _gourl=github.com/inhies/${_gitname}
 
 pkgver() {
   cd "${_gitname}"
-  printf '%s.%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+  printf '0.%s.%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
 build() {
